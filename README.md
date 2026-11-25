@@ -18,4 +18,4 @@ Bounty: https://make.fun/bounty/u-deysumbrella-the-excuse-my-agent-gave-me-54aca
 node main.ts
 ```
 
-Writes `entry.txt` to `$MAKEFUN_OUTPUT_DIR` when set, otherwise to `./output/entry.txt`. No network, no input files, no randomness.
+Writes `entry.txt` to `$MAKEFUN_OUTPUT_DIR` when set, otherwise to `./output/entry.txt`. No network, no input files, no randomness. Exits non-zero (with the reason on stderr) if the entry is ever outside 1–200 characters or the write fails — it never exits 0 silently with no file.

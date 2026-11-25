@@ -43,8 +43,13 @@ try {
   const dir = outputDir();
   mkdirSync(dir, { recursive: true });
   writeFileSync(resolve(dir, "entry.txt"), ENTRY, "utf8");
-} catch {
-  // Never throw: the grader wants a clean exit even if the write fails.
+} catch (err) {
+  // Fail loudly: the old code swallowed every error and exited 0 with
+  // no entry.txt, so a bad length or a failed write would fail the gate
+  // with no signal at all. A non-zero exit tells the grader the run
+  // itself broke, instead of passing a missing file off as a bad entry.
+  console.error(`error: ${err instanceof Error ? err.message : err}`);
+  process.exitCode = 1;
 }
 
 function outputDir(): string {
